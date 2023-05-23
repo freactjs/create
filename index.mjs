@@ -4,6 +4,7 @@ import path from 'path';
 import process from 'process';
 import minimist from 'minimist';
 import prompts from 'prompts';
+import { fileURLToPath } from 'url';
 import { blue, yellow, reset, red } from 'kolorist';
 
 const DEFAULT_PROJECT_NAME = 'freact-project';
@@ -108,13 +109,15 @@ async function main() {
 
   template ??= argTemplate;
   const templateDir = (() => {
+    const basePath = path.join(fileURLToPath(import.meta.url), '../templates');
+
     switch (template) {
       case 'javascript':
       case 'js':
-        return path.resolve('./templates/javascript');
+        return path.join(basePath, 'javascript');
       case 'typescript':
       case 'ts':
-        return path.resolve('./templates/typescript');
+        return path.join(basePath, 'typescript');
       default:
         throw new Error('UNKNOWN TEMPLATE! THIS SHOULD NOT HAPPEN.')
     }
