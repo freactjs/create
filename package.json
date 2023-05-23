@@ -1,0 +1,19 @@
+{
+  "name": "@freact/create",
+  "version": "0.0.1",
+  "description": "Scaffolding for Freact projects",
+  "bin": {
+    "create-freact": "./index.mjs"
+  },
+  "scripts": {
+    "release": "pnpm publish --access public"
+  },
+  "keywords": [],
+  "author": "Fry",
+  "license": "MIT",
+  "dependencies": {
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2"
+  }
+}
