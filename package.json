@@ -1,13 +1,13 @@
 {
   "name": "@freact/create",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Scaffolding for Freact projects",
   "bin": {
     "create-freact": "./index.mjs",
     "create": "./index.mjs"
   },
   "scripts": {
-    "release": "pnpm publish --access public"
+    "release": "pnpm publish --no-git-checks --access public"
   },
   "keywords": [],
   "author": "Fry",

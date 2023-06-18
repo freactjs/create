@@ -47,11 +47,12 @@ async function main() {
       {
         type: (_, { overwrite }) => {
           if (overwrite === false) {
-            throw new Error(red('✖') + ' Operation cancelled')
+            throw new Error(red('✖') + ' Operation cancelled');
           }
-          return null
+
+          return null;
         },
-        name: 'overwriteChecker',
+        name: 'overwriteChecker'
       },
       {
         type: () => (isValidPackageName(getProjectName()) ? null : 'text'),
@@ -72,38 +73,37 @@ async function main() {
             value: 'js'
           },
           {
-            title: blue('TypeScript (UNAVAILABLE)'),
-            disabled: true,
+            title: blue('TypeScript'),
             value: 'ts'
           }
         ]
       }
     ], {
       onCancel: () => {
-        throw new Error(red('✖') + ' Operation cancelled')
+        throw new Error(red('✖') + ' Operation cancelled');
       },
     });
   } catch (e) {
-    console.log(e.message)
-    return
+    console.log(e.message);
+    return;
   }
 
   let { overwrite, packageName, template } = result;
   const root = path.join(process.cwd(), projectName);
 
   if (overwrite) {
-    emptyDir(root)
+    emptyDir(root);
   } else if (!fs.existsSync(root)) {
-    fs.mkdirSync(root, { recursive: true })
+    fs.mkdirSync(root, { recursive: true });
   }
 
   const write = (file, content) => {
     const targetPath = path.join(root, file);
 
     if (content) {
-      fs.writeFileSync(targetPath, content)
+      fs.writeFileSync(targetPath, content);
     } else {
-      copy(path.join(templateDir, file), targetPath)
+      copy(path.join(templateDir, file), targetPath);
     }
   }
 
@@ -119,7 +119,7 @@ async function main() {
       case 'ts':
         return path.join(basePath, 'typescript');
       default:
-        throw new Error('UNKNOWN TEMPLATE! THIS SHOULD NOT HAPPEN.')
+        throw new Error('UNKNOWN TEMPLATE! THIS SHOULD NOT HAPPEN.');
     }
   })();
 
@@ -136,22 +136,22 @@ async function main() {
 }
 
 function formatTargetDir(targetDir) {
-  return targetDir?.trim().replace(/\/+$/g, '')
+  return targetDir?.trim().replace(/\/+$/g, '');
 }
 
 function copy(src, dest) {
-  const stat = fs.statSync(src)
+  const stat = fs.statSync(src);
   if (stat.isDirectory()) {
-    copyDir(src, dest)
+    copyDir(src, dest);
   } else {
-    fs.copyFileSync(src, dest)
+    fs.copyFileSync(src, dest);
   }
 }
 
 function isValidPackageName(projectName) {
   return /^(?:@[a-z\d\-*~][a-z\d\-*._~]*\/)?[a-z\d\-~][a-z\d\-._~]*$/.test(
-    projectName,
-  )
+    projectName
+  );
 }
 
 function toValidPackageName(projectName) {
@@ -160,42 +160,34 @@ function toValidPackageName(projectName) {
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/^[._]/, '')
-    .replace(/[^a-z\d\-~]+/g, '-')
+    .replace(/[^a-z\d\-~]+/g, '-');
 }
 
 function copyDir(srcDir, destDir) {
-  fs.mkdirSync(destDir, { recursive: true })
+  fs.mkdirSync(destDir, { recursive: true });
+
   for (const file of fs.readdirSync(srcDir)) {
-    const srcFile = path.resolve(srcDir, file)
-    const destFile = path.resolve(destDir, file)
-    copy(srcFile, destFile)
+    const srcFile = path.resolve(srcDir, file);
+    const destFile = path.resolve(destDir, file);
+    copy(srcFile, destFile);
   }
 }
 
 function isEmpty(path) {
-  const files = fs.readdirSync(path)
-  return files.length === 0 || (files.length === 1 && files[0] === '.git')
+  const files = fs.readdirSync(path);
+  return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }
 
 function isValidTemplate(name) {
   if (typeof name !== 'string') return false;
-  // return ['javascript', 'typescript', 'js', 'ts'].includes(name);
-  return ['javascript', 'js'].includes(name);
+  return ['javascript', 'typescript', 'js', 'ts'].includes(name);
 }
 
 function emptyDir(dir) {
-  if (!fs.existsSync(dir)) {
-    return
-  }
-  for (const file of fs.readdirSync(dir)) {
-    if (file === '.git') {
-      continue
-    }
-    fs.rmSync(path.resolve(dir, file), { recursive: true, force: true })
-  }
-}
+  if (!fs.existsSync(dir)) return;
 
-function editFile(file, callback) {
-  const content = fs.readFileSync(file, 'utf-8')
-  fs.writeFileSync(file, callback(content), 'utf-8')
+  for (const file of fs.readdirSync(dir)) {
+    if (file === '.git') continue;
+    fs.rmSync(path.resolve(dir, file), { recursive: true, force: true });
+  }
 }
