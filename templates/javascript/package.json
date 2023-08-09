@@ -8,7 +8,7 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@freact/core": "^0.0.7",
+    "@freact/core": "0.x",
     "vite": "^4.3.2"
   }
 }
