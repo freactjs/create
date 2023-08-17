@@ -73,8 +73,16 @@ async function main() {
             value: 'js'
           },
           {
+            title: yellow('JavaScript + Router'),
+            value: 'js-router'
+          },
+          {
             title: blue('TypeScript'),
             value: 'ts'
+          },
+          {
+            title: blue('TypeScript + Router'),
+            value: 'ts-router'
           }
         ]
       }
@@ -118,6 +126,12 @@ async function main() {
       case 'typescript':
       case 'ts':
         return path.join(basePath, 'typescript');
+      case 'javascript-router':
+      case 'js-router':
+        return path.join(basePath, 'javascript-router');
+      case 'typescript-router':
+      case 'ts-router':
+        return path.join(basePath, 'typescript-router');
       default:
         throw new Error('UNKNOWN TEMPLATE! THIS SHOULD NOT HAPPEN.');
     }
