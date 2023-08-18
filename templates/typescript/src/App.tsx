@@ -1,6 +1,6 @@
-import { useState } from '@freact/core';
+import { FC, useState } from '@freact/core';
 
-export const App = () => {
+export const App: FC = () => {
   const [count, setCount] = useState(0);
 
   return (

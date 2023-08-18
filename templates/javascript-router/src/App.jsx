@@ -1,4 +1,4 @@
-import { FC, useMemo } from "@freact/core";
+import { useMemo } from "@freact/core";
 import { Link, NavLink, Navigate, Outlet, Route, Routes, useNavigate, useParams } from "@freact/router";
 
 const EXAMPLE_DATA = [
@@ -39,7 +39,7 @@ const EXAMPLE_DATA = [
   }
 ];
 
-const Layout: FC = () => {
+const Layout = () => {
   return (
     <>
       <nav>
@@ -53,7 +53,7 @@ const Layout: FC = () => {
   );
 };
 
-const Home: FC = () => {
+const Home = () => {
   return (
     <>
       <h1>Home</h1>
@@ -62,8 +62,8 @@ const Home: FC = () => {
   );
 };
 
-const ArticleView: FC = () => {
-  const { id } = useParams<{ id: string; }>();
+const ArticleView = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const article = useMemo(() => {
@@ -82,7 +82,7 @@ const ArticleView: FC = () => {
     >
       <div
         className='art-view'
-        onClick={(e: Event) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <div
           className='thumb'
@@ -106,7 +106,7 @@ const ArticleView: FC = () => {
   );
 };
 
-const Articles: FC = () => {
+const Articles = () => {
   return (
     <>
       <h1>Articles</h1>
@@ -131,7 +131,7 @@ const Articles: FC = () => {
   );
 };
 
-export const App: FC = () => {
+export const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
