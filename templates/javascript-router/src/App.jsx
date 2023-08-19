@@ -111,9 +111,9 @@ const Articles = () => {
     <>
       <h1>Articles</h1>
       {EXAMPLE_DATA.map(x => (
-        <div className='art-card-wrap'>
+        <div className='art-card-wrap' key={x.id}>
           <Link to={`${x.id}`}>
-            <div key={x.id} className='art-card'>
+            <div className='art-card'>
               <div
                 className='thumb'
                 style={{ backgroundImage: `url(${x.image})` }}

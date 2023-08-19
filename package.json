@@ -1,6 +1,6 @@
 {
   "name": "@freact/create",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Scaffolding for Freact projects",
   "bin": {
     "create-freact": "./index.mjs",
